@@ -20,7 +20,7 @@ export const fileToGenerativePart = async (file: File): Promise<{ inlineData: { 
   };
 };
 
-// Daşın eyniləşdirilməsi (Gemini 2.5 Flash-Lite istifadə edərək)
+// Daşın eyniləşdirilməsi (Gemini 2.5 Flash istifadə edərək)
 export const identifyRock = async (imagePart: any): Promise<RockAnalysis> => {
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   
@@ -38,7 +38,7 @@ export const identifyRock = async (imagePart: any): Promise<RockAnalysis> => {
   - funFact: bu nümunə haqqında çox az bilinən maraqlı məlumat.`;
 
   const response = await ai.models.generateContent({
-    model: 'gemini-2.5-flash-lite',
+    model: 'gemini-2.5-flash',
     contents: { parts: [imagePart, { text: prompt }] },
     config: {
       thinkingConfig: { thinkingBudget: 24576 },
@@ -60,7 +60,9 @@ export const identifyRock = async (imagePart: any): Promise<RockAnalysis> => {
     }
   });
 
-  return JSON.parse(response.text || "{}");
+  const text = response.text;
+  if (!text) throw new Error("Model cavab vermədi.");
+  return JSON.parse(text);
 };
 
 // Əlavə geoloji məlumatlar (Google Search grounding)
@@ -71,7 +73,7 @@ export const getGeologicalInsights = async (rockName: string) => {
   Xüsusilə: tapıldığı əsas ölkələr, sənaye və ya zərgərlik əhəmiyyəti və son elmi xəbərlər.`;
 
   const response = await ai.models.generateContent({
-    model: 'gemini-2.5-flash-lite-latest',
+    model: 'gemini-2.5-flash',
     contents: prompt,
     config: {
       tools: [{ googleSearch: {} }]
@@ -85,7 +87,7 @@ export const getGeologicalInsights = async (rockName: string) => {
   })).filter((s: any) => s.uri !== '#');
 
   return {
-    text: response.text,
+    text: response.text || "Məlumat tapılmadı.",
     sources
   };
 };

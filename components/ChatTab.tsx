@@ -31,7 +31,7 @@ const ChatTab: React.FC = () => {
     try {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const chat = ai.chats.create({
-        model: 'gemini-2.5-flash-lite-latest',
+        model: 'gemini-2.5-flash',
         config: {
           systemInstruction: 'Siz professional və təcrübəli bir geoloq, mineraloqsunuz. Adınız UnearthedAI Geoloji Köməkçisidir. İstifadəçilərin geologiya, minerallar, qiymətli daşlar və yer elmləri haqqında suallarını dərindən və maraqlı bir dillə cavablandırırsınız. Cavablarınız elmi cəhətdən dəqiq, lakin hər kəs tərəfindən başa düşülən olmalıdır. Bütün söhbəti yalnız Azərbaycan dilində aparın.',
         }
