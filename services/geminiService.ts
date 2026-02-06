@@ -38,7 +38,7 @@ export const identifyRock = async (imagePart: any): Promise<RockAnalysis> => {
   - funFact: bu nümunə haqqında çox az bilinən maraqlı məlumat.`;
 
   const response = await ai.models.generateContent({
-    model: 'gemini-2.5-flash-lite-latest',
+    model: 'gemini-2.5-flash-lite',
     contents: { parts: [imagePart, { text: prompt }] },
     config: {
       thinkingConfig: { thinkingBudget: 24576 },
