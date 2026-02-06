@@ -1,0 +1,7 @@
+{
+  "name": "UnearthedAI",
+  "description": "An advanced AI-powered rock and mineral identification tool that provides precise geological analysis, source locations, and historical context using Google Search grounding and Gemini thinking mode.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
